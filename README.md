@@ -1,1 +1,1 @@
-thes is my portfolio for progammern
+my portfolio 
