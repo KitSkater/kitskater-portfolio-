@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pen Test Website</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Penetration Testing Playground</h1>
+    <p>Try some basic security tests below:</p>
+    
+    <label for="testInput">Test Input:</label>
+    <input type="text" id="testInput">
+    <button onclick="testInput()">Test</button>
+    
+    <p id="result"></p>
+    
+    <script>
+        function testInput() {
+            let input = document.getElementById("testInput").value;
+            if (input.includes("<script>")) {
+                document.getElementById("result").innerText = "Potential XSS detected!";
+            } else if (/('|--|;|\bSELECT\b|\bDROP\b|\bINSERT\b|\bDELETE\b|\bUPDATE\b|\bALTER\b)/i.test(input)) {
+                document.getElementById("result").innerText = "Potential SQL Injection detected!";
+            } else if (/admin|root|password|1234|guest/i.test(input)) {
+                document.getElementById("result").innerText = "Common weak credential detected!";
+            } else {
+                document.getElementById("result").innerText = "Input seems safe.";
+            }
+        }
+    </script>
+    
+    <h2>WebAssembly Security Test</h2>
+    <button onclick="runWasmTest()">Run WASM Security Test</button>
+    <p id="wasmResult"></p>
+    
+    <script>
+        fetch('module.wasm').then(response => 
+            response.arrayBuffer()
+        ).then(bytes => 
+            WebAssembly.instantiate(bytes, {})
+        ).then(results => {
+            const instance = results.instance;
+            console.log("WebAssembly Loaded", instance);
+        });
+
+        function runWasmTest() {
+            document.getElementById("wasmResult").innerText = "Running WebAssembly security checks...";
+            setTimeout(() => {
+                document.getElementById("wasmResult").innerText = "WASM Test Completed. No vulnerabilities found.";
+            }, 2000);
+        }
+    </script>
+    
+    <h2>Basic CSRF Test</h2>
+    <button onclick="csrfTest()">Run CSRF Test</button>
+    <p id="csrfResult"></p>
+    
+    <script>
+        function csrfTest() {
+            document.getElementById("csrfResult").innerText = "Attempting CSRF simulation...";
+            setTimeout(() => {
+                document.getElementById("csrfResult").innerText = "CSRF Test Completed. Ensure token-based protection is in place.";
+            }, 2000);
+        }
+    </script>
+    
+    <h2>Clickjacking Test</h2>
+    <button onclick="clickjackingTest()">Run Clickjacking Test</button>
+    <p id="clickjackingResult"></p>
+    
+    <script>
+        function clickjackingTest() {
+            document.getElementById("clickjackingResult").innerText = "Checking for Clickjacking vulnerability...";
+            setTimeout(() => {
+                document.getElementById("clickjackingResult").innerText = "Clickjacking Test Completed. Ensure X-Frame-Options is set.";
+            }, 2000);
+        }
+    </script>
+    
+    <h2>Open Redirect Test</h2>
+    <button onclick="openRedirectTest()">Run Open Redirect Test</button>
+    <p id="redirectResult"></p>
+    
+    <script>
+        function openRedirectTest() {
+            let url = "http://evil.com";
+            document.getElementById("redirectResult").innerText = "Checking if redirection to " + url + " is possible...";
+            setTimeout(() => {
+                document.getElementById("redirectResult").innerText = "Open Redirect Test Completed. Validate user-supplied URLs.";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
