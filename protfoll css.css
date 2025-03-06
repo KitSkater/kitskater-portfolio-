@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #06cdf0;
+    text-align: center;
+}
+header {
+    background: #271681;
+    color: rgb(145, 154, 184);
+    padding: 20px;
+}
+#projects {
+    margin: 20px;
+    padding: 20px;
+    background: rgb(22, 206, 190);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+#repo-list div {
+    padding: 10px;
+    border-bottom: 1px solid #0597b1;
+}
+#repo-list div:last-child {
+    border-bottom: none;
+}
+footer {
+    background: #20167a;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
